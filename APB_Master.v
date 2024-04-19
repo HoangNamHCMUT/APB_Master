@@ -24,10 +24,11 @@ module apb_master #(parameter DATA_WIDTH = 32, parameter ADDR_WIDTH = 32, parame
   localparam DONE = 3;
   
   reg [1:0] state; // a flip-flop for storing the current state of FSM
-  reg [1:0] nstate; // a wire containing next state of FSM ("reg" used in combinational logic will be synthesized to "wire")
+  reg [1:0] nstate; // a wire containing next state of FSM, so that no need to reset ("reg" used in combinational logic will be synthesized to "wire")
   
   // Pipelined variables for the outputs 
   // These variables are synthesized to wires (used in combinational logic)
+  // No need to reset values
   reg [ERR_WIDTH - 1 : 0] FAIL_mst_o_p;
   reg DONE_mst_o_p;
   reg [DATA_WIDTH - 1 : 0] RDATA_mst_o_p;
@@ -49,16 +50,7 @@ module apb_master #(parameter DATA_WIDTH = 32, parameter ADDR_WIDTH = 32, parame
           RDATA_mst_o <= 0;
           DONE_mst_o <= 0;
           FAIL_mst_o <= 2'b00;
-          PWRITE_mst_o_p <= 0;
-          PSEL_mst_o_p <= 0;
-          PENABLE_mst_o_p <= 0;
-          PADDR_mst_o_p <= 0;
-          PWDATA_mst_o_p <= 0;
-          RDATA_mst_o_p <= 0;
-          DONE_mst_o_p <= 0;
-          FAIL_mst_o_p <= 2'b00;
           state <= IDLE;
-          nstate <= IDLE;
         end
       else
         begin
@@ -74,9 +66,10 @@ module apb_master #(parameter DATA_WIDTH = 32, parameter ADDR_WIDTH = 32, parame
         end
     end
   
-  // Next state logic - Combinational Logic
+  // Next state logic - Combinational Logic - Updating the next state of FSM
   always@(*)
     begin
+      nstate = state;
       case(state)
         IDLE:
           begin
