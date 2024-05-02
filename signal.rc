@@ -1,0 +1,133 @@
+
+
+  1 Magic 271486
+  2 Revision Verdi_O-2018.09
+  3
+  4 ; Window Layout <x> <y> <width> <height> <signalwidth> <valuewidth>
+  5 viewPort 0 27 2560 1069 250 125
+  6
+  7 ; File list:
+  8 ; openDirFile [-d delimiter] [-s time_offset] [-rf auto_bus_rule_file] path_name file_name
+  9 openDirFile -d / "" "/home/ftv_training/SFD/3_Users/thanhnhan_pham/verilog/APB_full/dump.fsdb"
+ 10
+ 11 ; file time scale:
+ 12 ; fileTimeScale ### s|ms|us|ns|ps
+ 13
+ 14 ; signal spacing:
+ 15 signalSpacing 10
+ 16
+ 17 ; windowTimeUnit is used for zoom, cursor & marker
+ 18 ; waveform viewport range
+ 19 zoom 0.000000 1842.138365
+ 20 cursor 903.000000
+ 21 marker 0.000000
+ 22
+ 23 ; user define markers
+ 24 ; userMarker time_pos marker_name color linestyle
+ 25 ; visible top row signal index
+ 26 top 0
+ 27 ; marker line index
+ 28 markerPos 12
+ 29
+ 30 ; event list
+ 31 ; addEvent event_name event_expression
+ 32 ; curEvent event_name
+ 33
+ 34
+ 35
+ 36 COMPLEX_EVENT_BEGIN
+ 37
+ 38
+ 39 COMPLEX_EVENT_END
+ 40
+ 41
+ 42
+ 43 ; toolbar current search type
+ 44 ; curSTATUS search_type
+ 45 curSTATUS ByChange
+ 46
+ 47
+ 48 aliasmapname apb_master.state
+ 49 nalias IDLE   2'b00   NULL
+ 50 nalias SETUP    2'b01   NULL
+ 51 nalias ACCESS   2'b10   NULL
+ 52 nalias DONE   2'b11   NULL
+ 53
+ 54 aliasmapname APB_slave.cs
+ 55 nalias IDLE   2'b00   NULL
+ 56 nalias SETUP    2'b01   NULL
+ 57 nalias ACCESS   2'b10   NULL
+ 58 nalias DONE   2'b11   NULL
+ 59
+ 60 addGroup "Global signals"
+ 61 activeDirFile "" "/home/ftv_training/SFD/3_Users/thanhnhan_pham/verilog/APB_full/dump.fsdb"
+ 62 addSignal -h 20 /tb_APB/PCLK
+ 63 addSignal -h 20 -holdScope PRESETn
+ 64 aliasname apb_master.state
+ 65 addSignal -h 20 -UNSIGNED -HEX /tb_APB/mAPB_0/state[1:0]
+ 66 aliasname apb_master.state
+ 67 addSignal -h 20 -UNSIGNED -HEX -holdScope nstate[1:0]
+ 68 aliasname APB_slave.cs
+ 69 addSignal -h 20 -UNSIGNED -HEX /tb_APB/sAPB_0/cs[1:0]
+ 70 aliasname APB_slave.cs
+ 71 addSignal -h 20 -UNSIGNED -HEX -holdScope ns[1:0]
+ 72 addSignal -h 15 -holdScope AccOrDone
+ 73 addSignal -h 15 -holdScope PSEL_m_s
+ 74 addSignal -h 15 -holdScope PENABLE_m_s
+ 75 addSignal -h 15 -holdScope GRANT_e_p
+ 76 addSignal -h 15 -holdScope inRange
+ 77 addSignal -h 15 -holdScope PREADY_s_m
+ 78 addGroup "TAP to APB"
+ 79 addSignal -h 20 /tb_APB/ADDR_mst_i[31:0]
+ 80 addSignal -h 20 -holdScope RW_mst_i
+ 81 addSignal -h 20 -holdScope TRANSFER_mst_i
+ 82 addSignal -h 20 -holdScope WDATA_mst_i[31:0]
+ 83 addSignal -h 20 -holdScope TOUT_mst_i
+ 84 addGroup "APB to TAP"
+ 85 addSignal -h 20 /tb_APB/FAIL_mst_o[1:0]
+ 86 addSignal -h 20 -holdScope DONE_mst_o
+ 87 addSignal -h 20 -holdScope RDATA_mst_o[31:0]
+ 88 addGroup "APB to MEM"
+ 89 addSignal -h 20 /tb_APB/ADDR_p_e[31:0]
+ 90 addSignal -h 20 -holdScope WRITE_p_e
+ 91 addSignal -h 20 -holdScope WDATA_p_e[31:0]
+ 92 addSignal -h 20 -holdScope REQ_p_e
+ 93 addGroup "MEM to APB"
+ 94 addSignal -h 20 /tb_APB/GRANT_e_p
+ 95 addSignal -h 20 -holdScope RDATA_e_p[31:0]
+ 96 addSignal -h 20 -holdScope MaxAddr[31:0]
+ 97 addGroup "MST to SLV"
+ 98 addSignal -h 20 /tb_APB/PADDR_mst_o[31:0]
+ 99 addSignal -h 20 -holdScope PADDR_m_s[31:0]
+100 addSignal -h 20 -holdScope PWRITE_mst_o
+101 addSignal -h 20 -holdScope PWRITE_m_s
+102 addSignal -h 20 -holdScope PSEL_mst_o
+103 addSignal -h 20 -holdScope PSEL_m_s
+104 addSignal -h 20 -holdScope PENABLE_mst_o
+105 addSignal -h 20 -holdScope PENABLE_m_s
+106 addSignal -h 20 -holdScope PWDATA_mst_o[31:0]
+107 addSignal -h 20 -holdScope PWDATA_m_s[31:0]
+108 addGroup "SLV to MST"
+109 addSignal -h 20 /tb_APB/PREADY_mst_i
+110 addSignal -h 20 -holdScope PREADY_s_m
+111 addSignal -h 20 -holdScope PSLVERR_mst_i
+112 addSignal -h 20 -holdScope PSLVERR_s_m
+113 addSignal -h 20 -holdScope PRDATA_mst_i[31:0]
+114 addSignal -h 20 -holdScope PRDATA_s_m[31:0]
+115 addGroup "G8"
+116
+117 ; getSignalForm Scope Hierarchy Status
+118 ; active file of getSignalForm
+119 activeDirFile "" "/home/ftv_training/SFD/3_Users/thanhnhan_pham/verilog/APB_full/dump.fsdb"
+120
+121 GETSIGNALFORM_SCOPE_HIERARCHY_BEGIN
+122 getSignalForm close
+123
+124 "/tb_APB"
+125
+126 SCOPE_LIST_BEGIN
+127 "/tb_APB"
+128 SCOPE_LIST_END
+129
+130 GETSIGNALFORM_SCOPE_HIERARCHY_END
+131
