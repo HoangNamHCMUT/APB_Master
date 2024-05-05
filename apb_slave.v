@@ -1,15 +1,3 @@
-
-
-
-
-
-
-
-
-
-
-
-
 `include "parameters.vh"
 
 module APB_slave
