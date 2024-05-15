@@ -97,7 +97,10 @@ begin
     //  IDLE
     IDLE:
     begin
-      ns  = PSEL_m_s ? SETUP : IDLE;
+      if (PSEL_m_s)
+        ns  = inRange ? SETUP : DONE;
+      else
+        ns  = IDLE;
     end
 
     //  SETUP
@@ -168,11 +171,21 @@ begin
     DONE:
     begin
       REQ_p_e_p   = 1'b0        ;
-      PREADY_s_m_p  = GRANT_e_p     ;
+      PREADY_s_m_p  = 1'b1        ;
 
       PSLVERR_s_m_p = !inRange      ;
       if ((!PWRITE_m_s) && inRange)
         PRDATA_s_m_p    = RDATA_e_p   ;
+    end
+
+    //  DEFAULT
+    default:
+    begin
+      PREADY_s_m_p  = 1'b0        ;
+      PSLVERR_s_m_p = 1'b0        ;
+      PRDATA_s_m_p  = {`DATA_WIDTH{1'b0}} ;
+
+      REQ_p_e_p   = 1'b0        ;
     end
 
   endcase
@@ -180,3 +193,4 @@ begin
 end
 
 endmodule
+

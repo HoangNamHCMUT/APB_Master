@@ -3,26 +3,30 @@ module apb_master #(parameter DATA_WIDTH = `DATA_WIDTH, parameter ADDR_WIDTH = `
   // Global and control signals
   input PCLK, PRESETn,
   // TAP - APB interfaces
-  input TRANSFER_mst_i, RW_mst_i,
+  input TRANSFER_mst_i,
+  input RW_mst_i,
   input [ADDR_WIDTH - 1 : 0] ADDR_mst_i,
   input [DATA_WIDTH - 1 : 0] WDATA_mst_i,
   output reg [ERR_WIDTH - 1 : 0] FAIL_mst_o,
   output reg DONE_mst_o,
   output reg [DATA_WIDTH - 1 : 0] RDATA_mst_o,
   // APB master - APB slave interfaces
-  output reg PWRITE_mst_o, PSEL_mst_o, PENABLE_mst_o,
+  output reg PWRITE_mst_o,
+  output reg PSEL_mst_o,
+  output reg PENABLE_mst_o,
   output reg [ADDR_WIDTH - 1 : 0] PADDR_mst_o,
   output reg [DATA_WIDTH - 1 : 0] PWDATA_mst_o,
   input [DATA_WIDTH - 1 : 0] PRDATA_mst_i,
-  input PREADY_mst_i, PSLVERR_mst_i,
+  input PREADY_mst_i,
+  input PSLVERR_mst_i,
   // APB master - Timeout checker
   input TOUT_mst_i
 );
 
-  localparam IDLE = 0;
-  localparam SETUP = 1;
-  localparam ACCESS = 2;
-  localparam DONE = 3;
+  localparam IDLE = 2'd0;
+  localparam SETUP = 2'd1;
+  localparam ACCESS = 2'd2;
+  localparam DONE = 2'd3;
 
   reg [1:0] state; // a flip-flop for storing the current state of FSM
   reg [1:0] nstate; // a wire containing next state of FSM, so that no need to reset ("reg" used in combinational logic will be synthesized to "wire")
@@ -121,7 +125,6 @@ module apb_master #(parameter DATA_WIDTH = `DATA_WIDTH, parameter ADDR_WIDTH = `
             PSEL_mst_o_p = 0;
             PENABLE_mst_o_p = 0;
             DONE_mst_o_p = 0;
-            FAIL_mst_o_p = 2'b00;
           end
         SETUP:
           begin
@@ -171,3 +174,4 @@ module apb_master #(parameter DATA_WIDTH = `DATA_WIDTH, parameter ADDR_WIDTH = `
   end
 
 endmodule
+
